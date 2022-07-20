@@ -11,11 +11,26 @@ namespace DieRoller
     /// </summary>
     public class Die
     {
+
+        private static Random _random; 
+
+        static Die()
+        {
+            _random = new Random();
+        }
+        /// <summary>
+        /// Creates the die and rolls it to start wth
+        /// a random number
+        /// </summary>
+        public Die()
+        {
+            Roll();
+        }
         /// <summary>
         /// The face up value of the die
         /// </summary>
-        public byte FaceValue { get; set; }
-        
+        public byte FaceValue { get; private set; }
+
         /// <summary>
         /// True if the die is current;y held
         /// </summary>
@@ -23,15 +38,21 @@ namespace DieRoller
 
         /// <summary>
         /// Rolls a die and sets the <see cref="FaceValue"/>
-        /// to the new number. Returns the new number
+        /// to the new numberif the die is currently held. Returns the new number
+        /// Returns the <see cref="Facevalue"/>
         /// </summary>
-        /// <returns>Return the new random number</returns>
+        /// <returns>Return the <see cref="Facevalue"/></returns>
         public byte Roll()
         {
-            //Generate a random number
-            //set to face value
-            //return new number
-            throw new NotImplementedException();
+            if (!IsHeld)
+            {
+                //Generate a random number
+
+                byte newValue = (byte)_random.Next(1, 7);
+
+                FaceValue = newValue;
+            }
+            return FaceValue;
         }
     }
 }
